@@ -16,6 +16,7 @@ export async function createEditCabin(newCabin, id) {
   console.log("new", newCabin);
   const hasImagePath = newCabin.image.startsWith(supabaseUrl);
   console.log("img path", hasImagePath);
+
   const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll(
     "/",
     ""
@@ -42,6 +43,11 @@ export async function createEditCabin(newCabin, id) {
   if (error) {
     console.error(error);
     throw new Error("Cabins could not be created");
+  }
+
+  // upload copy image
+  if (hasImagePath) {
+    return data;
   }
 
   // Upload image
